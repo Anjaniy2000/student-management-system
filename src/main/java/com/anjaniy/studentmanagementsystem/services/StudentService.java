@@ -32,4 +32,13 @@ public class StudentService {
     public void deleteStudent(Integer rollNo) {
         studentRepository.deleteById(rollNo);
     }
+
+    public StudentDTO getStudentByRollNo(Integer rollNo) {
+        Student student = studentRepository.findById(rollNo).get();
+        return mapToDto(student);
+    }
+
+    private StudentDTO mapToDto(Student student){
+        return StudentDTO.builder().rollNo(student.getRollNo()).name(student.getName()).email(student.getEmail()).departmentName(student.getDepartmentName()).build();
+    }
 }

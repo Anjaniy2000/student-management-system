@@ -24,6 +24,11 @@ public class StudentController {
         return status(HttpStatus.OK).body(studentService.getAllStudents());
     }
 
+    @PostMapping("/getStudentByRollNo/{rollNo}")
+    public ResponseEntity<StudentDTO> getStudentByRollNo(@PathVariable("rollNo") Integer rollNo){
+        return status(HttpStatus.OK).body(studentService.getStudentByRollNo(rollNo));
+    }
+
     @PostMapping("/addStudent")
     public ResponseEntity<StudentDTO> addStudent(@RequestBody StudentDTO studentDTO){
         return status(HttpStatus.CREATED).body(studentService.addStudent(studentDTO));
