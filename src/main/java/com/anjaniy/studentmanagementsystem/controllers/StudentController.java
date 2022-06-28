@@ -3,6 +3,7 @@ package com.anjaniy.studentmanagementsystem.controllers;
 import com.anjaniy.studentmanagementsystem.dto.StudentDTO;
 import com.anjaniy.studentmanagementsystem.models.Student;
 import com.anjaniy.studentmanagementsystem.services.StudentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +41,9 @@ public class StudentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/updateStudent")
+    public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO){
+        return status(HttpStatus.OK).body(studentService.updateStudent(studentDTO));
+    }
 
 }

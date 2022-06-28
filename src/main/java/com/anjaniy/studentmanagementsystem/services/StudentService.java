@@ -3,6 +3,7 @@ package com.anjaniy.studentmanagementsystem.services;
 import com.anjaniy.studentmanagementsystem.dto.StudentDTO;
 import com.anjaniy.studentmanagementsystem.models.Student;
 import com.anjaniy.studentmanagementsystem.repositories.StudentRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +15,18 @@ public class StudentService {
     @Autowired
     StudentRepository studentRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
     public StudentDTO addStudent(StudentDTO studentDTO) {
-        Student student = studentRepository.save(mapToEntity(studentDTO));
-        studentDTO.setRollNo(student.getRollNo());
+        Student addedStudent = studentRepository.save(modelMapper.map(studentDTO, Student.class));
+        studentDTO.setRollNo(addedStudent.getRollNo());
         return studentDTO;
-    }
-
-    private Student mapToEntity(StudentDTO studentDTO){
-        return Student.builder().name(studentDTO.getName()).email(studentDTO.getEmail()).departmentName(studentDTO.getDepartmentName()).build();
     }
 
     public void deleteStudent(Integer rollNo) {
@@ -34,11 +34,11 @@ public class StudentService {
     }
 
     public StudentDTO getStudentByRollNo(Integer rollNo) {
-        Student student = studentRepository.findById(rollNo).get();
-        return mapToDto(student);
+        return modelMapper.map(studentRepository.findById(rollNo).get(), StudentDTO.class);
     }
 
-    private StudentDTO mapToDto(Student student){
-        return StudentDTO.builder().rollNo(student.getRollNo()).name(student.getName()).email(student.getEmail()).departmentName(student.getDepartmentName()).build();
+    public StudentDTO updateStudent(StudentDTO studentDTO) {
+        Student updatedStudent = studentRepository.save(modelMapper.map(studentDTO, Student.class));
+        return modelMapper.map(updatedStudent, StudentDTO.class);
     }
 }
