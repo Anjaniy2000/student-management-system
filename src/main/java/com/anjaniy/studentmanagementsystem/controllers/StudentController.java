@@ -25,7 +25,7 @@ public class StudentController {
         return status(HttpStatus.OK).body(studentService.getAllStudents());
     }
 
-    @PostMapping("/getStudentByRollNo/{rollNo}")
+    @GetMapping("/getStudentByRollNo/{rollNo}")
     public ResponseEntity<StudentDTO> getStudentByRollNo(@PathVariable("rollNo") Integer rollNo){
         return status(HttpStatus.OK).body(studentService.getStudentByRollNo(rollNo));
     }
