@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.status;
@@ -31,7 +32,7 @@ public class StudentController {
     }
 
     @PostMapping("/addStudent")
-    public ResponseEntity<StudentDTO> addStudent(@RequestBody StudentDTO studentDTO){
+    public ResponseEntity<StudentDTO> addStudent(@Valid @RequestBody StudentDTO studentDTO){
         return status(HttpStatus.CREATED).body(studentService.addStudent(studentDTO));
     }
 
@@ -42,7 +43,7 @@ public class StudentController {
     }
 
     @PutMapping("/updateStudent")
-    public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO){
+    public ResponseEntity<StudentDTO> updateStudent(@Valid @RequestBody StudentDTO studentDTO){
         return status(HttpStatus.OK).body(studentService.updateStudent(studentDTO));
     }
 
