@@ -27,7 +27,7 @@ public class StudentController {
     }
 
     @GetMapping("/getStudentByRollNo/{rollNo}")
-    public ResponseEntity<StudentDTO> getStudentByRollNo(@PathVariable("rollNo") Integer rollNo){
+    public ResponseEntity<StudentDTO> getStudentByRollNo(@Valid @PathVariable("rollNo") Integer rollNo){
         return status(HttpStatus.OK).body(studentService.getStudentByRollNo(rollNo));
     }
 
@@ -37,7 +37,7 @@ public class StudentController {
     }
 
     @PostMapping("/deleteStudent/{rollNo}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable("rollNo") Integer rollNo){
+    public ResponseEntity<Void> deleteStudent(@Valid @PathVariable("rollNo") Integer rollNo){
         studentService.deleteStudent(rollNo);
         return new ResponseEntity<>(HttpStatus.OK);
     }
