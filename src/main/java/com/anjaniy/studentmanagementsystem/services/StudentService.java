@@ -6,6 +6,7 @@ import com.anjaniy.studentmanagementsystem.repositories.StudentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    public StudentDTO getStudentByRollNo(Integer rollNo) {
+        return modelMapper.map(studentRepository.findById(rollNo).get(), StudentDTO.class);
+    }
+
     public StudentDTO addStudent(StudentDTO studentDTO) {
         Student addedStudent = studentRepository.save(modelMapper.map(studentDTO, Student.class));
         studentDTO.setRollNo(addedStudent.getRollNo());
@@ -31,10 +36,6 @@ public class StudentService {
 
     public void deleteStudent(Integer rollNo) {
         studentRepository.deleteById(rollNo);
-    }
-
-    public StudentDTO getStudentByRollNo(Integer rollNo) {
-        return modelMapper.map(studentRepository.findById(rollNo).get(), StudentDTO.class);
     }
 
     public StudentDTO updateStudent(StudentDTO studentDTO) {
