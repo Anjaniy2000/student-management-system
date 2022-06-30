@@ -36,9 +36,15 @@ public class StudentController {
         return status(HttpStatus.CREATED).body(studentService.addStudent(studentDTO));
     }
 
-    @PostMapping("/deleteStudent/{rollNo}")
+    @DeleteMapping("/deleteStudent/{rollNo}")
     public ResponseEntity<Void> deleteStudent(@Valid @PathVariable("rollNo") Integer rollNo){
         studentService.deleteStudent(rollNo);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteAllStudents")
+    public ResponseEntity<Void> deleteAllStudents(){
+        studentService.deleteAllStudents();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
